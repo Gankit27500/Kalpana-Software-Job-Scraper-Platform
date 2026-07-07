@@ -21,8 +21,9 @@ export const RegisterPage: React.FC = () => {
     setLoading(true);
 
     try {
+      const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:8000';
       // 1. Hit registration endpoint
-      const registerRes = await fetch('http://localhost:8000/api/auth/register', {
+      const registerRes = await fetch(`${apiBase}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -44,7 +45,7 @@ export const RegisterPage: React.FC = () => {
       setSuccess(true);
 
       // 2. Auto-login on success
-      const loginRes = await fetch('http://localhost:8000/api/auth/login', {
+      const loginRes = await fetch(`${apiBase}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),

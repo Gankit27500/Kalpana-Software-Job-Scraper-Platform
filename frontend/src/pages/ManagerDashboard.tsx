@@ -8,6 +8,8 @@ import {
   Briefcase, Mail, Award, UserCheck
 } from 'lucide-react';
 
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
 interface Job {
   id: number;
   title: string;
@@ -79,7 +81,7 @@ export const ManagerDashboard: React.FC = () => {
     setLoadingJobs(true);
     try {
       // Fetch internal jobs
-      const response = await fetch('http://localhost:8000/api/jobs?source=internal&limit=100');
+      const response = await fetch(`${API_BASE}/api/jobs?source=internal&limit=100`);
       const data = await response.json();
       if (response.ok) {
         // Filter jobs created by this manager
@@ -98,7 +100,7 @@ export const ManagerDashboard: React.FC = () => {
     setLoadingApplicants(true);
     try {
       if (selectedJobId !== 'all') {
-        const response = await fetch(`http://localhost:8000/api/jobs/${selectedJobId}/applicants`, {
+        const response = await fetch(`${API_BASE}/api/jobs/${selectedJobId}/applicants`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -113,7 +115,7 @@ export const ManagerDashboard: React.FC = () => {
         // Fetch applicants for ALL jobs owned by manager
         let allApps: Application[] = [];
         for (const job of myJobs) {
-          const response = await fetch(`http://localhost:8000/api/jobs/${job.id}/applicants`, {
+          const response = await fetch(`${API_BASE}/api/jobs/${job.id}/applicants`, {
             headers: {
               'Authorization': `Bearer ${token}`
             }
@@ -189,8 +191,8 @@ export const ManagerDashboard: React.FC = () => {
 
     try {
       const url = editingJob 
-        ? `http://localhost:8000/api/jobs/${editingJob.id}`
-        : 'http://localhost:8000/api/jobs';
+        ? `${API_BASE}/api/jobs/${editingJob.id}`
+        : `${API_BASE}/api/jobs`;
       
       const method = editingJob ? 'PUT' : 'POST';
 
@@ -223,7 +225,7 @@ export const ManagerDashboard: React.FC = () => {
     if (!window.confirm('Are you sure you want to delete this job posting? This will remove all associated applications.')) return;
 
     try {
-      const response = await fetch(`http://localhost:8000/api/jobs/${jobId}`, {
+      const response = await fetch(`${API_BASE}/api/jobs/${jobId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -245,7 +247,7 @@ export const ManagerDashboard: React.FC = () => {
   const handleChangeStatus = async (appId: number, nextStatus: string) => {
     setUpdatingAppStatus(appId);
     try {
-      const response = await fetch(`http://localhost:8000/api/applications/${appId}/status`, {
+      const response = await fetch(`${API_BASE}/api/applications/${appId}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

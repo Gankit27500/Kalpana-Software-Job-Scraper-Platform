@@ -8,6 +8,8 @@ import {
   MapPin, DollarSign, Calendar, AlertCircle
 } from 'lucide-react';
 
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
 interface Job {
   id: number;
   title: string;
@@ -92,7 +94,7 @@ export const StudentDashboard: React.FC = () => {
     setLoadingJobs(true);
     try {
       const skip = (page - 1) * 8;
-      const url = `http://localhost:8000/api/jobs?skip=${skip}&limit=8` +
+      const url = `${API_BASE}/api/jobs?skip=${skip}&limit=8` +
         `&search=${encodeURIComponent(searchQuery)}` +
         `&location=${encodeURIComponent(locationQuery)}` +
         `&source=${sourceFilter}` +
@@ -115,7 +117,7 @@ export const StudentDashboard: React.FC = () => {
   const fetchApplications = async () => {
     setLoadingApps(true);
     try {
-      const response = await fetch('http://localhost:8000/api/applications', {
+      const response = await fetch(`${API_BASE}/api/applications`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -135,7 +137,7 @@ export const StudentDashboard: React.FC = () => {
   const fetchRecommendations = async () => {
     setLoadingRecs(true);
     try {
-      const response = await fetch('http://localhost:8000/api/ai/recommendations', {
+      const response = await fetch(`${API_BASE}/api/ai/recommendations`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -188,7 +190,7 @@ export const StudentDashboard: React.FC = () => {
 
     try {
       // Trigger API Scraper
-      const response = await fetch('http://localhost:8000/api/scrape', {
+      const response = await fetch(`${API_BASE}/api/scrape`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -232,7 +234,7 @@ export const StudentDashboard: React.FC = () => {
     setLoadingMatch(true);
 
     try {
-      const response = await fetch(`http://localhost:8000/api/ai/match/${job.id}`, {
+      const response = await fetch(`${API_BASE}/api/ai/match/${job.id}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -255,7 +257,7 @@ export const StudentDashboard: React.FC = () => {
     setApplying(true);
 
     try {
-      const response = await fetch('http://localhost:8000/api/applications', {
+      const response = await fetch(`${API_BASE}/api/applications`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -292,7 +294,7 @@ export const StudentDashboard: React.FC = () => {
     setProfileSuccessMsg(false);
 
     try {
-      const response = await fetch('http://localhost:8000/api/profile', {
+      const response = await fetch(`${API_BASE}/api/profile`, {
         method: 'HTTP_PUT' in window ? 'PUT' : 'PUT', // standard PUT method
         headers: {
           'Content-Type': 'application/json',

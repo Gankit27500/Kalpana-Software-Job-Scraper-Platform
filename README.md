@@ -6,6 +6,13 @@ This project provides role-based workspaces for both **Students** (to search/scr
 
 ---
 
+## 🔗 Live Deployment Links
+- **Live Frontend Website**: [https://kalpana-software-job-scraper-platfo.vercel.app](https://kalpana-software-job-scraper-platfo.vercel.app)
+- **Live Backend API URL**: [https://kalpana-software-job-scraper-platform.onrender.com](https://kalpana-software-job-scraper-platform.onrender.com)
+- **Interactive Swagger API Docs**: [https://kalpana-software-job-scraper-platform.onrender.com/docs](https://kalpana-software-job-scraper-platform.onrender.com/docs)
+
+---
+
 ## 🛠️ Tech Stack
 - **Frontend**: React.js, TypeScript, Tailwind CSS (v4), React Router DOM (v6), Lucide Icons
 - **Backend**: FastAPI (Python 3.12), SQLite (via SQLAlchemy ORM), JWT (JOSE library), Passlib (Bcrypt)
